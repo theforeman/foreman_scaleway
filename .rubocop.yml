@@ -1,0 +1,31 @@
+Rails:
+  Enabled: true
+
+# Don't enforce documentation
+Style/Documentation:
+  Enabled: false
+
+Rails/ActionFilter:
+  EnforcedStyle: action
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/Next:
+  Enabled: false
+
+# Support both ruby19 and hash_rockets
+Style/HashSyntax:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 500
+  Exclude:
+    - 'test/**/*'
+
+Performance/FixedSize:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/LineLength:
+  Max: 130

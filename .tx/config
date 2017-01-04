@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[foreman.foreman_scaleway]
+file_filter = locale/<lang>/foreman_scaleway.edit.po
+source_file = locale/foreman_scaleway.pot
+source_lang = en
+type = PO

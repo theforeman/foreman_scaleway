@@ -1,0 +1,16 @@
+<% title @vm.name %>
+<div class="col-md-12">
+  <table class="table table-bordered table-striped">
+    <tr><th colspan="2">Properties</th></tr>
+    <%= prop :name %>
+    <%= prop :public_ip_address, "Public IP address" %>
+    <%= prop :private_ip_address, "Private IP address" %>
+    <%= prop :ipv6_address, "IPv6 address" %>
+    <%= prop :image_name, "Image" %>
+    <%= prop :bootscript_title, "Bootscript" %>
+    <%= prop :location_zone_id, "Zone Id" %>
+    <%= prop :creation_date, 'Created' %>
+    <%= prop :public_dns_name, 'Public DNS' %>
+    <%= prop :private_dns_name, 'Private DNS' %>
+  </table>
+</div>

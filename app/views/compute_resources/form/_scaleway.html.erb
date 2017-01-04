@@ -1,0 +1,9 @@
+<%= password_f f, :api_token, :label => _("API Token"), :unset => unset_password? %>
+
+<%= selectable_f(f, :region, f.object.regions, {},
+                 :label => _('Region'),
+                 :help_inline => link_to_function(
+                   _("Test Connection"), "testConnection(this)",
+                   :class => "btn btn-success",
+                   :'data-url' => test_connection_compute_resources_path) +
+                   hidden_spinner('', :id => 'test_connection_indicator').html_safe) %>

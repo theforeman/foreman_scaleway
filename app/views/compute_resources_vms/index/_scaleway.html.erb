@@ -1,0 +1,24 @@
+<table class="table table-bordered" data-table='inline'>
+  <thead>
+    <tr>
+      <th><%= _('Name') %></th>
+      <th><%= _('Image') %></th>
+      <th><%= _('Size') %></th>
+      <th><%= _('Location') %></th>
+      <th><%= _('State') %></th>
+      <th><%= _('Action') %></th>
+    </tr>
+  </thead>
+  <% @vms.each do |vm| %>
+    <tr>
+      <td><%= link_to_if_authorized vm.name, hash_for_compute_resource_vm_path(:compute_resource_id => @compute_resource, :id => vm.identity).merge(:auth_object => @compute_resource, :authorizer => authorizer) %></td>
+      <td><%= vm.image.try(:name) %></td>
+      <td><%= vm.commercial_type %></td>
+      <td><%= vm.location.try(:[], "zone_id") %></td>
+      <td> <span <%= vm_power_class(vm.ready?) %>> <%= vm_state(vm) %></span> </td>
+      <td>
+        <%= vm_power_action(vm, authorizer) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

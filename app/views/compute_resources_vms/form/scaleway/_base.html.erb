@@ -1,0 +1,12 @@
+<%= select_f f, :commercial_type, compute_resource.flavors, :to_s, :to_s, {}, {:label => _('Instance Type'), :disabled => !new_host} %>
+
+<%= checkbox_f f, :enable_ipv6, {:label => _('Enable IPv6'), :label_size => "col-md-2"}, true, false %>
+<%= checkbox_f f, :dynamic_ip_required, {:label => _('Assign a public IP'), :label_size => "col-md-2", :help_inline => _('You can provision your server without any public IP. The server is then located in the private Scaleway network and not reachable via the internet. This is suitable for backend services, e.g. databases. Please note, that Foreman still needs to be able to connect to the new instance for provisioning.')}, true, false %>
+
+<%
+  arch ||= nil ; os ||= nil
+  images = possible_images(compute_resource, arch, os)
+%>
+<div id="image_selection">
+  <%= scaleway_image_select(f, images) %>
+</div>
