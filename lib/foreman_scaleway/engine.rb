@@ -49,6 +49,12 @@ module ForemanScaleway
       end
     end
 
+    rake_tasks do
+      Rake::Task['db:seed'].enhance do
+        ForemanScaleway::Engine.load_seed
+      end
+    end
+
     initializer 'foreman_scaleway.register_gettext', after: :load_config_initializers do |_app|
       locale_dir = File.join(File.expand_path('../../..', __FILE__), 'locale')
       locale_domain = 'foreman_scaleway'
