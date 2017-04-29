@@ -102,7 +102,7 @@ module ForemanScaleway
     end
 
     def flavors
-      %w(C1 VC1S VC1M VC1L C2S C2M C2L)
+      %w(C1 VC1S VC1M VC1L C2S C2M C2L X64-2GB X64-4GB X64-8GB X64-15GB X64-30GB X64-60GB X64-120GB ARM64-2GB ARM64-4GB ARM64-8GB)
     end
 
     private
