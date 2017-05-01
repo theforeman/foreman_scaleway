@@ -17,7 +17,7 @@
       <td><%= vm.location.try(:[], "zone_id") %></td>
       <td> <span <%= vm_power_class(vm.ready?) %>> <%= vm_state(vm) %></span> </td>
       <td>
-        <%= vm_power_action(vm, authorizer) %>
+        <%= scaleway_available_actions(vm, authorizer) %>
       </td>
     </tr>
   <% end %>
