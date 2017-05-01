@@ -3,7 +3,7 @@ module ForemanScaleway
     engine_name 'foreman_scaleway'
 
     # config.autoload_paths += Dir["#{config.root}/app/controllers/concerns"]
-    # config.autoload_paths += Dir["#{config.root}/app/helpers/concerns"]
+    config.autoload_paths += Dir["#{config.root}/app/helpers/concerns"]
     # config.autoload_paths += Dir["#{config.root}/app/models/concerns"]
 
     initializer 'foreman_scaleway.register_plugin', :before => :finisher_hook do |_app|
@@ -44,6 +44,7 @@ module ForemanScaleway
           '../../../app/models/concerns/fog_extensions/scaleway/server', __FILE__
         )
         Fog::Scaleway::Compute::Server.send(:include, FogExtensions::Scaleway::Server)
+        ComputeResourcesVmsHelper.send(:prepend, ForemanScaleway::ComputeResourcesVmsHelperExtensions)
       rescue => e
         Rails.logger.warn "ForemanScaleway: skipping engine hook (#{e})"
       end
