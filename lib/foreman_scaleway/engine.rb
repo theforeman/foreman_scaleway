@@ -3,12 +3,12 @@ module ForemanScaleway
     engine_name 'foreman_scaleway'
 
     # config.autoload_paths += Dir["#{config.root}/app/controllers/concerns"]
-    # config.autoload_paths += Dir["#{config.root}/app/helpers/concerns"]
+    config.autoload_paths += Dir["#{config.root}/app/helpers/concerns"]
     # config.autoload_paths += Dir["#{config.root}/app/models/concerns"]
 
     initializer 'foreman_scaleway.register_plugin', :before => :finisher_hook do |_app|
       Foreman::Plugin.register :foreman_scaleway do
-        requires_foreman '>= 1.13'
+        requires_foreman '>= 1.15'
 
         compute_resource Scaleway
         parameter_filter ComputeResource, :api_token
@@ -39,11 +39,14 @@ module ForemanScaleway
         require File.expand_path(
           '../../../app/models/concerns/fog_extensions/scaleway/servers', __FILE__
         )
-        Fog::Scaleway::Compute::Servers.send(:include, FogExtensions::Scaleway::Servers)
+        Fog::Scaleway::Compute::Servers.send(:prepend, FogExtensions::Scaleway::Servers)
         require File.expand_path(
           '../../../app/models/concerns/fog_extensions/scaleway/server', __FILE__
         )
         Fog::Scaleway::Compute::Server.send(:include, FogExtensions::Scaleway::Server)
+        ComputeResourcesVmsHelper.send(:include, ForemanScaleway::ComputeResourcesVmsHelperExtensions)
+        ComputeResourceHostImporter.send(:include, ForemanScaleway::ComputeResourceHostArchitectureImporter)
+        ComputeResourceHostImporter.send(:include, ForemanScaleway::ComputeResourceHostOsImporter)
       rescue => e
         Rails.logger.warn "ForemanScaleway: skipping engine hook (#{e})"
       end

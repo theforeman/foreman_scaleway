@@ -107,6 +107,13 @@ module ForemanScaleway
 
     private
 
+    # Overwritten because fog-scaleway's volumes is a hash and not an array as expected in core
+    def set_vm_volumes_attributes(vm, vm_attrs)
+      volumes = vm.volumes || {}
+      vm_attrs[:volumes_attributes] = Hash[volumes.map { |idx, volume| [idx.to_s, volume.attributes] }]
+      vm_attrs
+    end
+
     def parse_args(attr)
       opts = attr.dup.with_indifferent_access
       opts[:enable_ipv6] = Foreman::Cast.to_bool(opts[:enable_ipv6])

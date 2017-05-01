@@ -26,6 +26,19 @@ module FogExtensions
         ipv6.try(:[], 'address')
       end
 
+      def foreman_architecture
+        case arch
+        when 'arm64'
+          'aarch64'
+        when 'arm'
+          'armv7l'
+        when 'x86_64'
+          'x86_64'
+        else
+          nil
+        end
+      end
+
       def ip_addresses
         [public_ip_address, private_ip_address, ipv6_address].flatten.select(&:present?)
       end
