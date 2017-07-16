@@ -111,7 +111,7 @@ module ForemanScaleway
       opts = attr.dup.with_indifferent_access
       opts[:enable_ipv6] = Foreman::Cast.to_bool(opts[:enable_ipv6])
       opts[:dynamic_ip_required] = Foreman::Cast.to_bool(opts[:dynamic_ip_required])
-      opts.delete(:image_id)
+      opts[:image] = opts.delete(:image_id)
       opts
     end
 
